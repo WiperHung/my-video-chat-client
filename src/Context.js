@@ -32,7 +32,7 @@ const ContextProvider = ({ children }) => {
         console.log(err);
       }
     };
-    (async () => await getUserMedia())();
+    getUserMedia();
 
     socket.on("me", (id) => setMe(id));
 
