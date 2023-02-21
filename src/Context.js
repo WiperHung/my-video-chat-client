@@ -27,6 +27,7 @@ const ContextProvider = ({ children }) => {
         });
         setStream(currentStream);
         myVideo.current.srcObject = currentStream;
+        console.log(currentStream);
       } catch (err) {
         console.log(err);
       }
