@@ -24,7 +24,6 @@ const ContextProvider = ({ children }) => {
       try {
         const currentStream = await navigator.mediaDevices.getUserMedia({
           video: true,
-          audio: true,
         });
         setStream(currentStream);
         myVideo.current.srcObject = currentStream;
