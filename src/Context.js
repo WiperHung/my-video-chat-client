@@ -27,13 +27,12 @@ const ContextProvider = ({ children }) => {
           audio: false,
         });
         setStream(currentStream);
-        window.stream = currentStream;
         myVideo.current.srcObject = currentStream;
       } catch (err) {
         console.log(err);
       }
     };
-    getUserMedia();
+    (async () => await getUserMedia())();
 
     socket.on("me", (id) => setMe(id));
 
@@ -50,6 +49,7 @@ const ContextProvider = ({ children }) => {
   };
   const answerCall = () => {
     setCallAccepted(true);
+    setCallEnded(false);
 
     const peer = new Peer({ initiator: false, trickle: false, stream });
 
@@ -94,10 +94,7 @@ const ContextProvider = ({ children }) => {
   };
 
   const leaveCall = () => {
-    setCallEnded(true);
-
     connectionRef.current.destroy();
-
     window.location.reload();
   };
 
