@@ -20,13 +20,19 @@ const ContextProvider = ({ children }) => {
   const connectionRef = useRef();
 
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((currentStream) => {
+    const getUserMedia = async () => {
+      try {
+        const currentStream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true,
+        });
         setStream(currentStream);
-
         myVideo.current.srcObject = currentStream;
-      });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUserMedia();
 
     socket.on("me", (id) => setMe(id));
 
